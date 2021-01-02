@@ -3,7 +3,7 @@ from jinja2 import Template
 import argparse
 import operator
 
-def gifToText(filename, maxLen, outputFile, withColour):
+def gifToText(filename, maxLen, outputFile, withColour, character):
     try:
         maxLen = int(maxLen)
     except:
@@ -20,7 +20,8 @@ def gifToText(filename, maxLen, outputFile, withColour):
     height = int(aspectRatio * height)
 
     palette = img.getpalette()
-    greyscale = "MNHQ$OC?7>!:-;. "
+    greyscale = "@MNZQUzj?+>;*-. "
+    choiceFactor = float(len(greyscale)) / 3.0 / 256.0
     strings = []
 
     try:
@@ -35,10 +36,9 @@ def gifToText(filename, maxLen, outputFile, withColour):
                 for w in range(width):
                     rgb = newImg.getpixel((w,h))
                     if withColour:
-                        # Using @ as a place holder. TO DO: let the user give a character they want to use
-                        string += ("<span style=\"color:rgb({0}, {1}, {2});\">" + '@' + "</span>").format(rgb[0], rgb[1], rgb[2] / 255.0)
+                        string += ("<span style=\"color:rgb({0}, {1}, {2});\">" + character + "</span>").format(rgb[0], rgb[1], rgb[2] / 255.0)
                     else:
-                        string += greyscale[int(sum(rgb) / 3.0 / 256.0 * 16)]
+                        string += greyscale[int(sum(rgb) * choiceFactor)]
                 string += '\n'
             
             # really not sure what this next bit does
@@ -64,21 +64,25 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('filename', help='GIF input file')
     parser.add_argument('-m', '--maxLen', help='Maximum width of the output GIF')
-    # We should just set default output file name
-    #parser.add_argument('-o', help='Name of output file')
     parser.add_argument('-c', '--colour', action='store_true', default=False, help='Produce ASCII GIF with colour')
+
+    parser.add_argument('-t', '--text', type=str, help='Character to produce coloured gif with')
 
     args = parser.parse_args()
 
     if not args.maxLen:
         args.maxLen = 80
+
+    if not args.text:
+        args.text = "&#9607;"
     
     
     gifToText(
         args.filename,
         args.maxLen,
-        'out.html',
-        args.colour
+        "output" + args.filename[:-4] + ".html",
+        args.colour,
+        args.text
     )
 
 if __name__ == '__main__':
