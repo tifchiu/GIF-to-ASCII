@@ -5,3 +5,4 @@ Done in Python.
 Created by University of Waterloo first and second year CS students:
 
 Tiffany Chiu - Lead Software Engineer  
+Mark Chen - Software Engineer  
