@@ -19,13 +19,14 @@ def gifToText(filename, maxLen, outputFile, withColour, character):
     width = int(aspectRatio * width)
     height = int(aspectRatio * height)
 
-    palette = img.getpalette()
     greyscale = "@MNZQUzj?+>;*-. "
     choiceFactor = float(len(greyscale)) / 3.0 / 256.0
     strings = []
 
     try:
         while True:
+            palette = img.getpalette()
+
             img.putpalette(palette)
             newImg = Image.new('RGB', img.size)
             newImg.paste(img)
@@ -35,8 +36,9 @@ def gifToText(filename, maxLen, outputFile, withColour, character):
             for h in range(height):
                 for w in range(width):
                     rgb = newImg.getpixel((w,h))
+                    #print(rgb)
                     if withColour:
-                        string += ("<span style=\"color:rgb({0}, {1}, {2});\">" + character + "</span>").format(rgb[0], rgb[1], rgb[2] / 255.0)
+                        string += ("<span style=\"color:rgb({0}, {1}, {2});\">" + character + "</span>").format(rgb[0], rgb[1], rgb[2])
                     else:
                         string += greyscale[int(sum(rgb) * choiceFactor)]
                 string += '\n'
