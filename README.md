@@ -7,5 +7,5 @@ Created by University of Waterloo first and second year CS students:
 Tiffany Chiu - Lead Software Engineer  
 Mark Chen - Software Engineer  
 Nicole Shi - Software Engineer  
-Ted Weng - Software Engineer
+Ted Weng - Software Engineer  
 Bonnie Peng - Software Engineer
