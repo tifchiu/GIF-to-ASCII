@@ -9,18 +9,20 @@ def gifToText(filename, maxLen, outputFile, withColour, character):
     except:
         maxLen = 80
     
+    # opening the file, and alerting the user if such file is not found
     try:
         img = Image.open(filename)
     except:
         exit("file not found: {}".format(filename))
     
+    # Initializing variables based on properties of the file uploaded
     width, height = img.size
     aspectRatio = float(maxLen) / max(width,height)
     width = int(aspectRatio * width)
     height = int(aspectRatio * height)
 
-    greyscale = "@MNZQUzj?+>;*-. "
-    choiceFactor = float(len(greyscale)) / 3.0 / 256.0
+    greyscale = "@MNZQUzj?+>;*-. " # characters to be used in the ASCII generation of the gif
+    choiceFactor = float(len(greyscale)) / 3.0 / 256.0 # calculations to determine pixel color (?)
     strings = []
 
     try:
