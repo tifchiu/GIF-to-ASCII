@@ -9,3 +9,5 @@ Mark Chen - Software Engineer
 Nicole Shi - Software Engineer  
 Ted Weng - Software Engineer  
 Bonnie Peng - Software Engineer
+
+See our other project done in parallel which [converts images to ASCII characters.](https://github.com/marko-polo-cheno/Abstract-ASCII-Adapter/)    
